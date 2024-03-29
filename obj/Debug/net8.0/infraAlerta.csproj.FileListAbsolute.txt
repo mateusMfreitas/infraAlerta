@@ -104,3 +104,11 @@ C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\ru\Mic
 C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.APIGatewayEvents.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.ApplicationLoadBalancerEvents.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.AspNetCoreServer.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.AspNetCoreServer.Hosting.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.Core.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.Logging.AspNetCore.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.RuntimeSupport.dll
+C:\Users\mateus_cashtrack\Documents\Projetos\infraAlerta\bin\Debug\net8.0\Amazon.Lambda.Serialization.SystemTextJson.dll
