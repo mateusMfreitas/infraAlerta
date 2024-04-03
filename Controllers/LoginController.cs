@@ -41,6 +41,28 @@ public class LoginController : Controller
         //_session.CreateUserSession(userDb);
         return Ok(userDb);
     }
+
+    [HttpPost("forgotPassword", Name = "forgotPassword")]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordModel forgotPassword)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var userDb = await _context.User.FirstOrDefaultAsync(x => x.email == forgotPassword.email);
+        if (userDb == null)
+        {
+            return NotFound();
+        }
+
+        string newPassword = userDb.NewPassword(); // Gera uma nova senha para o usuário
+
+        await _context.SaveChangesAsync();
+        // Enviar e-mail com a senha
+        return Ok();
+    }
+
     /*
     [HttpGet("logout", Name = "logout")]
     public async Task<IActionResult> Logout()
