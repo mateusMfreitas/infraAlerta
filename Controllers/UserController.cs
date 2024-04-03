@@ -3,6 +3,7 @@ using infraAlerta.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
+
 namespace infraAlerta.Controllers;
 
 [ApiController]
@@ -32,6 +33,7 @@ public class UserController : ControllerBase
             return BadRequest(ModelState);
         }
 
+        newUser.SetPasswordHash();
         _context.User.Add(newUser);
         await _context.SaveChangesAsync();
 
@@ -56,6 +58,10 @@ public class UserController : ControllerBase
         user.cpf = updatedUser.cpf;
         user.phone = updatedUser.phone;
         user.admin = updatedUser.admin;
+        user.birthDate = updatedUser.birthDate;
+        user.email = updatedUser.email;
+        user.password = updatedUser.password;
+        user.login = updatedUser.login;
 
         await _context.SaveChangesAsync();
 
