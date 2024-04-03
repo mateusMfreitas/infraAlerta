@@ -1,3 +1,4 @@
+using infraAlerta.Helper;
 using System.ComponentModel.DataAnnotations;
 namespace infraAlerta.Models
 {
@@ -8,5 +9,15 @@ namespace infraAlerta.Models
         public string cpf{get;set;}
         public string phone{get;set;}
         public bool admin{get;set;}
+        public string login { get;set;}
+        public string email { get;set;}
+        public string password { get;set;}
+        public DateTime birthDate { get;set;} 
+
+        public void SetPasswordHash()
+        {
+            password = password.GenerateHash();
+        }
+        
     }
 }
