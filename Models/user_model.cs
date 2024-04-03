@@ -18,6 +18,13 @@ namespace infraAlerta.Models
         {
             password = password.GenerateHash();
         }
+
+        public string NewPassword()
+        {
+            string newPassword = Guid.NewGuid().ToString().Substring(0, 8);
+            password = newPassword.GenerateHash();
+            return newPassword;
+        }
         
     }
 }
