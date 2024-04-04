@@ -14,11 +14,13 @@ namespace infraAlerta.Controllers;
 public class LoginController : Controller
 {
     private readonly ApiDbContext _context;
+    private readonly IEmail _email;
     //private readonly Helper.ISession _session;
     
-    public LoginController(ApiDbContext context)
+    public LoginController(ApiDbContext context, IEmail email)
     {
         _context = context;
+        _email = email;
         //_session = session;
     }
 
@@ -58,8 +60,19 @@ public class LoginController : Controller
 
         string newPassword = userDb.NewPassword(); // Gera uma nova senha para o usuário
 
-        await _context.SaveChangesAsync();
+        string mensagem = $"Sua nova senha é: {newPassword}";
         // Enviar e-mail com a senha
+        bool emailSend = _email.sendEmail(userDb.email, "InfraAlerta - Redefinição de Senha", mensagem);
+
+        if (emailSend)
+        {
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            return BadRequest();
+        }
+
         return Ok();
     }
 
