@@ -1,5 +1,6 @@
 using infraAlerta.Data;
 using infraAlerta.Helper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,6 @@ builder.Services.AddDbContext<ApiDbContext>(options => options.UseMySql(
     connectionStringMysql,
     ServerVersion.AutoDetect(connectionStringMysql)
 ));
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,6 +25,16 @@ builder.Services.AddSession(o =>
     o.Cookie.HttpOnly = true;
     o.Cookie.IsEssential = true;
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+               builder =>
+               {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 var app = builder.Build();
 
 
@@ -35,6 +45,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
