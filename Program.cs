@@ -1,4 +1,5 @@
 using infraAlerta.Data;
+using infraAlerta.Helper;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
+builder.Services.AddScoped<IEmail, Email>();
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
