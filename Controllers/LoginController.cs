@@ -15,13 +15,13 @@ public class LoginController : Controller
 {
     private readonly ApiDbContext _context;
     private readonly IEmail _email;
-    //private readonly Helper.ISession _session;
+    private readonly Helper.ISession _session;
     
-    public LoginController(ApiDbContext context, IEmail email)
+    public LoginController(ApiDbContext context, IEmail email, Helper.ISession session)
     {
         _context = context;
         _email = email;
-        //_session = session;
+        _session = session;
     }
 
     [HttpPost("auth", Name = "auth")]
@@ -40,7 +40,7 @@ public class LoginController : Controller
             return NotFound();
         }
 
-        //_session.CreateUserSession(userDb);
+        _session.CreateUserSession(userDb);
         return Ok(userDb);
     }
 
@@ -76,7 +76,7 @@ public class LoginController : Controller
         return Ok();
     }
 
-    /*
+    
     [HttpGet("logout", Name = "logout")]
     public async Task<IActionResult> Logout()
     {
@@ -94,5 +94,5 @@ public class LoginController : Controller
         }
 
         return Ok(user);
-    }*/
+    }
 }
