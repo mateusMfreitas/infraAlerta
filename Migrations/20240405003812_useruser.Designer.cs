@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using infraAlerta.Data;
 
@@ -11,9 +12,11 @@ using infraAlerta.Data;
 namespace infraAlerta.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240405003812_useruser")]
+    partial class useruser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,6 +154,9 @@ namespace infraAlerta.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int>("ua_number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ua_problem_id")
                         .HasColumnType("int");
 
                     b.Property<string>("ua_state")
