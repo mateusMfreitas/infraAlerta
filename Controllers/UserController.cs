@@ -83,6 +83,28 @@ public class UserController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPut("changePassword/{id}", Name = "changePassword")]
+    public async Task<IActionResult> ChangePassword(int id, [FromBody] changePasswordModel updatedPassword)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var user = _context.User.FirstOrDefault(x => x.user_id == id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        user.password = updatedPassword.newPassword;
+        user.SetPasswordHash();
+
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
 }
 
 public class UserCreationData
@@ -90,4 +112,6 @@ public class UserCreationData
     public User User { get; set; }
     public User_address UserAddress { get; set; }
 }
+
+
 
