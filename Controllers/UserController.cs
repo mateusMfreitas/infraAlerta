@@ -63,7 +63,6 @@ public class UserController : ControllerBase
         user.admin = updatedUser.admin;
         user.birthDate = updatedUser.birthDate;
         user.email = updatedUser.email;
-        user.login = updatedUser.login;
 
         await _context.SaveChangesAsync();
 
