@@ -1,6 +1,7 @@
 using infraAlerta.Data;
 using infraAlerta.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 
@@ -26,18 +27,20 @@ public class UserController : ControllerBase
 
     [HttpPost("createUser", Name = "createUser")]
 
-    public async Task<IActionResult> CreateUser([FromBody] User newUser)
+    public async Task<IActionResult> CreateUser([FromBody] UserCreationData creationData)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
 
-        newUser.SetPasswordHash();
-        _context.User.Add(newUser);
+        creationData.User.SetPasswordHash(); // Define o hash da senha usando o método definido na classe User
+        _context.User.Add(creationData.User);
         await _context.SaveChangesAsync();
 
-        return Ok(newUser);
+        var userId = creationData.User.user_id;
+        creationData.UserAddress.ua_user_id = userId;
+        _context.User_Address.Add(creationData.UserAddress);
+        await _context.SaveChangesAsync();
+        
+        return Ok(userId);
+
     }
 
     [HttpPut("updateUser/{id}", Name = "updateUser")]
@@ -82,3 +85,10 @@ public class UserController : ControllerBase
         return Ok();
     }
 }
+
+public class UserCreationData
+{
+    public User User { get; set; }
+    public User_address UserAddress { get; set; }
+}
+
