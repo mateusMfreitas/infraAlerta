@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin\\Release\\net8.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/c33fc7f7-392b-4026-815b-4b6694d7ae30/resourceGroups/infraAlerta/providers/Microsoft.Web/sites/infraAlerta"
+}

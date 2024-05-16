@@ -30,7 +30,6 @@ public class ProblemController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-
         _context.Problem.Add(newProblem);
         await _context.SaveChangesAsync();
 

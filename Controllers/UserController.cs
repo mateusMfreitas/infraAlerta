@@ -3,7 +3,7 @@ using infraAlerta.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 
 namespace infraAlerta.Controllers;
 
@@ -29,7 +29,6 @@ public class UserController : ControllerBase
 
     public async Task<IActionResult> CreateUser([FromBody] UserCreationData creationData)
     {
-
         creationData.User.SetPasswordHash(); // Define o hash da senha usando o método definido na classe User
         _context.User.Add(creationData.User);
         await _context.SaveChangesAsync();
@@ -40,7 +39,6 @@ public class UserController : ControllerBase
         await _context.SaveChangesAsync();
         
         return Ok(userId);
-
     }
 
     [HttpPut("updateUser/{id}", Name = "updateUser")]
