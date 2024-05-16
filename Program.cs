@@ -2,10 +2,18 @@ using infraAlerta.Data;
 using infraAlerta.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using dotenv.net;
+
+
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, ".env");
+DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { dotenv }));
+
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionStringMysql = builder.Configuration["CONNECTION_MYSQL"];
+
 // Add services to the container.
-var connectionStringMysql = builder.Configuration.GetConnectionString("ConnectionMysql");
 builder.Services.AddDbContext<ApiDbContext>(options => options.UseMySql(
     connectionStringMysql,
     ServerVersion.AutoDetect(connectionStringMysql)
