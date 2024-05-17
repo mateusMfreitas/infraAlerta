@@ -11,7 +11,7 @@ DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { dotenv }));
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionStringMysql = builder.Configuration["MYSQLCONNSTR_localdb"];
+var connectionStringMysql = builder.Configuration["CONNECTION_MYSQL"];
 
 // Add services to the container.
 builder.Services.AddDbContext<ApiDbContext>(options => options.UseMySql(
