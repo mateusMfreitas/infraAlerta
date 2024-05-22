@@ -24,13 +24,14 @@ public class ProblemController : ControllerBase
     }
 
     [HttpPost("createProblem", Name = "createProblem")]
-    public async Task<IActionResult> CreateProblem([FromBody] Problem newProblem)
+    public async Task<IActionResult> CreateProblem([FromBody] ProblemCreationData newProblem)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        _context.Problem.Add(newProblem);
+        _context.Problem.Add(newProblem.Problem);
+        await _context.SaveChangesAsync();
+
+        var problemId = newProblem.Problem.pro_id;
+        newProblem.ProblemAddress.pa_problem_id = problemId;
+        _context.Problem_Address.Add(newProblem.ProblemAddress);
         await _context.SaveChangesAsync();
 
         return Ok(newProblem);
@@ -73,4 +74,10 @@ public class ProblemController : ControllerBase
 
         return Ok();
     }
+}
+
+public class ProblemCreationData
+{
+    public Problem Problem { get; set; }
+    public Problem_address ProblemAddress { get; set; }
 }

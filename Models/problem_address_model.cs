@@ -10,6 +10,5 @@ namespace infraAlerta.Models
         public string pa_neighborhood{get;set;}
         public string pa_city{get;set;}
         public string pa_state{get;set;}
-        public Problem pa_problem{get;set;}
     }
 }
