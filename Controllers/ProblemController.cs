@@ -95,7 +95,42 @@ public class ProblemController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPut("changeOwner/{id}/{userId}", Name = "changeOwner")]
+    public async Task<IActionResult> ChangeOwner(int id, int userId)
+    {
+
+        var problem = _context.Problem.FirstOrDefault(x => x.pro_id == id);
+        if (problem == null)
+        {
+            return NotFound();
+        }
+
+        problem.pro_admin = userId;
+        problem.pro_status = "ATRIBUIDO";
+        await _context.SaveChangesAsync();
+
+        return Ok(problem);
+    }
+
+    [HttpPut("closeProblem/{id}", Name = "closeProblem")]
+    public async Task<IActionResult> CloseProblem(int id, int userId)
+    {
+
+        var problem = _context.Problem.FirstOrDefault(x => x.pro_id == id);
+        if (problem == null)
+        {
+            return NotFound();
+        }
+
+        problem.pro_status = "FINALIZADO";
+        await _context.SaveChangesAsync();
+
+        return Ok(problem);
+    }
 }
+
+    
 
 public class ProblemCreationData
 {
