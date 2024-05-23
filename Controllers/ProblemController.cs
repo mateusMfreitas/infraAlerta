@@ -23,6 +23,20 @@ public class ProblemController : ControllerBase
         return Ok(problems);
     }
 
+    [HttpGet("getProblem/{id}", Name = "getProblem")]
+    public IActionResult GetProblem(int id)
+    {
+        var problem = _context.Problem.Where(p => p.pro_id == id).ToList();
+        var problem_address = _context.Problem_Address.Where(pa => pa.pa_problem_id == id).ToList();
+
+        var result = new 
+        {
+            Problem = problem,
+            ProblemAddress = problem_address
+        };
+        return Ok(result);
+    }
+
     [HttpGet("getProblemsUser/{id}", Name = "getProblemsUser")]
     public IActionResult GetProblemsUser(int id)
     {
