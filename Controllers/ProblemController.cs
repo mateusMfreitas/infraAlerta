@@ -23,6 +23,13 @@ public class ProblemController : ControllerBase
         return Ok(problems);
     }
 
+    [HttpGet("getProblemsUser/{id}", Name = "getProblemsUser")]
+    public IActionResult GetProblemsUser(int id)
+    {
+        var problems = _context.Problem.Where(p => p.pro_user == id).ToList();
+        return Ok(problems);
+    }
+
     [HttpPost("createProblem", Name = "createProblem")]
     public async Task<IActionResult> CreateProblem([FromBody] ProblemCreationData newProblem)
     {
