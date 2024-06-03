@@ -11,7 +11,7 @@ namespace infraAlerta.Controllers;
 [Route("user")]
 public class UserController : ControllerBase
 {
-        private readonly ApiDbContext _context;
+    private readonly ApiDbContext _context;
 
     public UserController(ApiDbContext context)
     {
@@ -26,7 +26,6 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("createUser", Name = "createUser")]
-
     public async Task<IActionResult> CreateUser([FromBody] UserCreationData creationData)
     {
         creationData.User.SetPasswordHash(); // Define o hash da senha usando o método definido na classe User
@@ -103,6 +102,18 @@ public class UserController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet("getUser/{id}", Name = "getUser")]
+    public IActionResult GetUser(int id)
+    {
+        var user = _context.User.FirstOrDefault(x => x.user_id == id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(user);
+    }
 }
 
 public class UserCreationData
@@ -110,6 +121,3 @@ public class UserCreationData
     public User User { get; set; }
     public User_address UserAddress { get; set; }
 }
-
-
-
