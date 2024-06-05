@@ -7,10 +7,10 @@ namespace infraAlerta.Models
     public class Comment
     {
         [Key]
-        public int comment_id { get; set; }
+        public int comments_id { get; set; }
         public int pro_id { get; set; }
         public int user_id { get; set; }
-        public string comment_text { get; set; } = string.Empty;
+        public string comments_text { get; set; } = string.Empty;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime created_at { get; set; } = DateTime.Now;

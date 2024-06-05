@@ -24,7 +24,7 @@ namespace infraAlerta.Controllers
             {
                 pro_id = pro_id,
                 user_id = addCommentDto.user_id,
-                comment_text = addCommentDto.Content,
+                comments_text = addCommentDto.Content,
                 created_at = DateTime.UtcNow
             };
 
