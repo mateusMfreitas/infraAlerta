@@ -216,6 +216,119 @@ namespace infraAlerta.Controllers
             };
             return Ok(result);
         }
+
+        // Relatório de chamados ao longo do tempo (Chamados ao Longo do Tempo)
+        [HttpGet("report/line-data")]
+        public IActionResult GetLineData()
+        {
+            var data = _context.Problem
+                .GroupBy(p => new { p.pro_status, p.pro_id })
+                .Select(g => new
+                {
+                    Year = g.Key.pro_id,
+                    Month = g.Key.pro_status,
+                    Count = g.Count()
+                })
+                .OrderBy(d => d.Year).ThenBy(d => d.Month)
+                .ToList();
+
+            var labels = data.Select(d => $"{d.Month}/{d.Year}").ToArray();
+            var counts = data.Select(d => d.Count).ToArray();
+
+            return Ok(new
+            {
+                labels,
+                datasets = new[]
+                {
+                    new
+                    {
+                        label = "Chamados ao Longo do Tempo",
+                        data = counts,
+                        fill = false,
+                        backgroundColor = "rgba(75, 192, 192, 0.2)",
+                        borderColor = "rgba(75, 192, 192, 1)"
+                    }
+                }
+            });
+        }
+
+        // Relatório de tipos de problemas mais comuns (Tipos de Problemas)
+        [HttpGet("report/pie-data")]
+        public IActionResult GetPieData()
+        {
+            var data = _context.Problem
+                .GroupBy(p => p.pro_classification)
+                .Select(g => new
+                {
+                    Type = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .ToList();
+
+            var result = new
+            {
+                labels = data.Select(d => d.Type).ToArray(),
+                datasets = new[]
+                {
+                    new
+                    {
+                        label = "Problemas",
+                        data = data.Select(d => d.Count).ToArray(),
+                        backgroundColor = new[]
+                        {
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                            "rgba(255, 206, 86, 0.2)"
+                        },
+                        borderColor = new[]
+                        {
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)"
+                        },
+                        borderWidth = 1
+                    }
+                }
+            };
+            return Ok(result);
+        }
+
+        // Relatório de bairros com mais chamados (Chamados por Bairro)
+        [HttpGet("report/bar-data")]
+        public IActionResult GetBarData()
+        {
+            var data = _context.Problem
+                .Join(_context.Problem_Address,
+                      problem => problem.pro_id,
+                      address => address.pa_problem_id,
+                      (problem, address) => new { problem, address })
+                .GroupBy(pa => pa.address.pa_neighborhood)
+                .Select(g => new
+                {
+                    Neighborhood = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(x => x.Count)
+                .ToList();
+
+            var result = new
+            {
+                labels = data.Select(d => d.Neighborhood).ToArray(),
+                datasets = new[]
+                {
+                    new
+                    {
+                        label = "Chamados",
+                        data = data.Select(d => d.Count).ToArray(),
+                        backgroundColor = "rgba(75, 192, 192, 0.2)",
+                        borderColor = "rgba(75, 192, 192, 1)",
+                        borderWidth = 1
+                    }
+                }
+            };
+            return Ok(result);
+        }
     }
 
     public class ProblemCreationData
