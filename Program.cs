@@ -1,9 +1,9 @@
 using infraAlerta.Data;
 using infraAlerta.Helper;
+using infraAlerta.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using dotenv.net;
-
 
 var root = Directory.GetCurrentDirectory();
 var dotenv = Path.Combine(root, ".env");
@@ -27,6 +27,7 @@ builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<infraAlerta.Helper.ISession, Session>();
 builder.Services.AddScoped<IEmail, Email>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(o =>
 {

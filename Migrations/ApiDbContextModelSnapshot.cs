@@ -22,6 +22,35 @@ namespace infraAlerta.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("infraAlerta.Models.Comment", b =>
+                {
+                    b.Property<int>("comment_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("comment_id"));
+
+                    b.Property<string>("comment_text")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("created_at")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime(6)");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<DateTime>("created_at"));
+
+                    b.Property<int>("problem_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("user_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("comment_id");
+
+                    b.ToTable("Comment");
+                });
+
             modelBuilder.Entity("infraAlerta.Models.Problem", b =>
                 {
                     b.Property<int>("pro_id")
